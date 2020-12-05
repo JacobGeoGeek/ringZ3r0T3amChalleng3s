@@ -1,7 +1,7 @@
 import requests
 import sys
 import getpass
-
+from bs4 import BeautifulSoup
 
 URL_LOGIN = "https://ringzer0ctf.com/login"
 URL_CHALLENGE = "https://ringzer0ctf.com/challenges/{0}"
@@ -13,10 +13,12 @@ def login():
 
     payload = {"username": user_name, "password": password}
 
-    result = requests.post(URL_LOGIN, payload)
+    result = requests.post(URL_LOGIN, data=payload)
+    login_success = BeautifulSoup(result.text, "html.parser").find_all(
+        "div", class_="alert alert-danger")
 
-    if not result.ok:
-        print("Error cannot connect")
+    if len(login_success) != 0:
+        print("Error, cannot connect")
         login()
 
     return result.content
@@ -24,3 +26,4 @@ def login():
 
 if __name__ == "__main__":
     login()
+    print("contract you are connected")
