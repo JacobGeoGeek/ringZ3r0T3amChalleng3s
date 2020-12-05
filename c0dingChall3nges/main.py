@@ -8,7 +8,7 @@ URL_CHALLENGE = "https://ringzer0ctf.com/challenges/{0}"
 
 
 def login():
-    user_name = getpass.getuser("Enter your user name: ")
+    user_name = input("Enter your user name: ")
     password = getpass.getpass("Enter your password: ")
 
     payload = {"username": user_name, "password": password}
