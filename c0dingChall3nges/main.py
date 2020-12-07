@@ -15,7 +15,8 @@ def login():
 
     result = session.post(URL_LOGIN, data=payload)
     login_success = BeautifulSoup(result.text, "html.parser").find_all(
-        "div", class_="alert alert-danger")
+        "div", class_="alert alert-danger"
+    )
 
     if len(login_success) != 0:
         print("Error, Unable to log, please try again")
